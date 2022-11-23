@@ -17,7 +17,7 @@ padding: 3px;margin: 0;display: grid;color: #d1b7c6;
 align-content: center;justify-content: center;font-style: italic;
 }
 input{
-    width: 550px;border-radius: 30px;padding-left: 10px;
+    width: 550px;border-radius: 30px;padding-left: 10px;color:black;
 }
 .search{
 font-size: 35;border-radius: 30px;
