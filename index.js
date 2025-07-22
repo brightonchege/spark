@@ -1,122 +1,111 @@
-const search = document.getElementById('search')
-search.addEventListener('click',()=>{
-    const middle = document.getElementById('middle')
-     
-    let seaerchmusic = document.getElementById('searchmusic').value
+const search = document.getElementById('search');
+const middle = document.getElementById('middle');
+const searchMusic = document.getElementById('searchmusic');
+const clear = document.getElementById('clear');
 
+// Search button event listener
+search.addEventListener('click', () => {
+    const searchQuery = searchMusic.value.trim();
+    if (!searchQuery) return; // Exit if search input is empty
 
+    // Clear previous results
+    middle.innerHTML = '';
 
-    
-/*    const options = {
+    const options = {
         method: 'GET',
         headers: {
             'X-RapidAPI-Key': '68ca2b29famsh3659961ddfd0bc6p13afa2jsn2558945f180c',
-            'X-RapidAPI-Host': 'youtube-music1.p.rapidapi.com'
+            'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
         }
-    };*/
+    };
 
-   /* const options = {
-        method: 'GET',
-        headers: {
-            'X-RapidAPI-Key': '68ca2b29famsh3659961ddfd0bc6p13afa2jsn2558945f180c',
-            'X-RapidAPI-Host': 'ytube-videos.p.rapidapi.com'
-        }
-    };*/
-   // fetch(`https://youtube-music1.p.rapidapi.com/v2/search?query=${seaerchmusic}`, options)
- //  fetch(`https://youtube138.p.rapidapi.com/auto-complete/?q=${seaerchmusic}&hl=en&gl=US`, options)
- const options = {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '68ca2b29famsh3659961ddfd0bc6p13afa2jsn2558945f180c',
-		'X-RapidAPI-Host': 'youtube-search-results.p.rapidapi.com'
-	}
-};
+    // Fetch search results
+    fetch(`https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${encodeURIComponent(searchQuery)}`, options)
+        .then(response => {
+            if (!response.ok) throw new Error('Search API request failed');
+            return response.json();
+        })
+        .then(response => {
+            // Limit to 30 results or available items
+            const items = response.items || [];
+            const maxResults = Math.min(items.length, 30);
 
-fetch(`https://youtube-search-results.p.rapidapi.com/youtube-search/?q=${seaerchmusic}`, options)
-	.then(response => response.json())
+            for (let i = 0; i < maxResults; i++) {
+                // Create music container
+                const musicContainer = document.createElement('div');
+                musicContainer.className = 'musiccontainer';
 
-// fetch(`https://ytube-videos.p.rapidapi.com/search-video?q=${seaerchmusic}&lang=EN`, options)
-  //      .then(response => response.json())
-        .then((response)=>{
-    for(var i = 0; i < 30 ;i++){
-        const musiccontainer = document.createElement('div')
-              musiccontainer.className='musiccontainer'
-        
-        const image = document.createElement('div')
-              image.className = "image"
-              const pic = document.createElement('img')
-                //   pic.src = response.result.songs[i].thumbnail
-                pic.src = response.items[i].thumbnails[0].url
+                // Image section
+                const image = document.createElement('div');
+                image.className = 'image';
+                const pic = document.createElement('img');
+                pic.src = response.items[i].thumbnails[0]?.url || '';
 
-        const nameplace = document.createElement('div')
-              nameplace.className = "nameplace"
+                // Name section
+                const namePlace = document.createElement('div');
+                namePlace.className = 'nameplace';
 
-              const musciancont = document.createElement('div')
-              musciancont.className = "musciancont"
+                const musicianCont = document.createElement('div');
+                musicianCont.className = 'musiciancont';
+                const musician = document.createElement('h4');
+                musician.className = 'musician';
+                musician.innerHTML = response.items[i].author?.name || 'Unknown Artist';
 
-                     const musician = document.createElement('h4')
-                           musician.className = "muscian"
-                      //     musician.innerHTML = response.result.songs[i].artists[0].name
-                      musician.innerHTML = response.items[i].author.name
+                const songCont = document.createElement('div');
+                songCont.className = 'songcont';
+                const song = document.createElement('h3');
+                song.className = 'song';
+                song.innerHTML = response.items[i].title || 'Unknown Title';
 
-              const songcont = document.createElement('div')
-              songcont.className = "songcont"
+                // Download section
+                const downloadContainer = document.createElement('div');
+                downloadContainer.className = 'downloadcontainer';
+                const downloadLink = document.createElement('a');
+                const downloadBtn = document.createElement('button');
+                downloadBtn.className = 'down';
+                const icon = document.createElement('ion-icon');
+                icon.name = 'arrow-down-outline';
+                const songId = document.createElement('p');
+                songId.className = 'songid';
+                songId.innerHTML = response.items[i].id || '';
 
-                     const song = document.createElement('h3') 
-                           song.className = "song"
-                        //   song.innerHTML = response.result.songs[i].title
-                        song.innerHTML = response.items[i].title
-            
-     const downloadlink =  document.createElement('a')
+                // Append elements
+                middle.append(musicContainer);
+                musicContainer.append(image, namePlace, downloadContainer);
+                image.append(pic);
+                namePlace.append(musicianCont, songCont);
+                musicianCont.append(musician);
+                songCont.append(song);
+                downloadContainer.append(downloadLink);
+                downloadLink.append(downloadBtn);
+                downloadBtn.append(icon, songId);
 
-        const downloadconatainer  = document.createElement('div')
-              downloadconatainer.className = "downloadcontainer"
+                // Fetch download link
+                const downloadOptions = {
+                    method: 'GET',
+                    headers: {
+                        'X-RapidAPI-Key': '68ca2b29famsh3659961ddfd0bc6p13afa2jsn2558945f180c',
+                        'X-RapidAPI-Host': 'youtube-mp3-download1.p.rapidapi.com'
+                    }
+                };
 
-              const downloadbtn  = document.createElement('button')
-                    downloadbtn.className="down"
-              const icon = document.createElement('ion-icon')
-                    icon.name = "arrow-down-outline"
+                fetch(`https://youtube-mp3-download1.p.rapidapi.com/dl?id=${songId.innerHTML}`, downloadOptions)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Download API request failed');
+                        return response.json();
+                    })
+                    .then(data => {
+                        downloadLink.href = data.link || '#';
+                        downloadLink.target = '_blank';
+                    })
+                    .catch(err => console.error('Download error:', err));
+            }
+        })
+        .catch(err => console.error('Search error:', err));
+});
 
-                    const songid = document.createElement('p')
-                    songid.className = "songid"
-                   // songid.innerHTML = response.result.songs[i].id
-                   songid.innerHTML = response.items[i].id
-
-middle.append(musiccontainer)
-musiccontainer.append(image,nameplace,downloadconatainer)
-downloadconatainer.append(downloadlink)
-image.append(pic)
-nameplace.append(musciancont,songcont)
-musciancont.append(musician)
-songcont.append(song)
-downloadlink.append(downloadbtn)
-downloadbtn.append(icon,songid)
-
-let idname = songid.innerHTML
-const options1 = {
-      method: 'GET',
-      headers: {
-            'X-RapidAPI-Key': '68ca2b29famsh3659961ddfd0bc6p13afa2jsn2558945f180c',
-            'X-RapidAPI-Host': 'youtube-mp3-download1.p.rapidapi.com'
-      }
-};
-
-fetch(`https://youtube-mp3-download1.p.rapidapi.com/dl?id=${idname}`, options1)
-      .then(response => response.json())
-      .then((response) =>{
-          //console.log(response.link)
- downloadlink.href = response.link
- downloadlink.target="_blank"
-      } )
-      .catch(err => console.error(err));
-      const clear = document.getElementById('clear')
-          clear.addEventListener('click',()=>{
-              var getValue= document.getElementById("searchmusic").value
-              if (getValue !="") {
-                  getValue = "";
-              }
-                musiccontainer.remove()
-               })
-        }
-     })
-})
+// Clear button event listener
+clear.addEventListener('click', () => {
+    searchMusic.value = '';
+    middle.innerHTML = '';
+});
