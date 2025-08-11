@@ -1,1 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex Muigai Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-black-900: #f2f2fc;
+      --bg-black-100: #fdf9ff;
+      --bg-black-50: #e8dfec;
+      --text-black-900: #302e4d;
+      --text-black-700: #504e70;
+      --skin-color: #ec1839; /* Default color-1 */
+    }
+    body.dark {
+      --bg-black-900: #151515;
+      --bg-black-100: #222222;
+      --bg-black-50: #393939;
+      --text-black-900: #ffffff;
+      --text-black-700: #e9e9e9;
+    }
+    body {
+      line-height: 1.5;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      outline: none;
+      text-decoration: none;
+      box-sizing: border-box;
+    }
+    ::before, ::after {
+      box-sizing: border-box;
+    }
+    ul {
+      list-style: none;
+    }
+    .section {
+      background: var(--bg-black-900);
+      min-height: 100vh;
+      display: block;
+      padding: 0 30px;
+      opacity: 1;
+      position: fixed;
+      left: 270px;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: all 0.3s ease;
+    }
+    .section.back-section {
+      z-index: 1;
+    }
+    .section.active {
+      z-index: 2;
+      opacity: 1;
+      animation: slideSection 1s ease;
+    }
+    @keyframes slideSection {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(0); }
+    }
+    .hidden {
+      display: none !important;
+    }
+    .padd-15 {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+    }
+    .section .container {
+      padding-top: 60px;
+      padding-bottom: 70px;
+    }
+    .section-title {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 60px;
+    }
+    .section-title h2 {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--text-black-900);
+      position: relative;
+    }
+    .section-title h2::before {
+      content: '';
+      height: 4px;
+      width: 50px;
+      background-color: var(--skin-color);
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
+    .section-title h2::after {
+      content: '';
+      height: 4px;
+      width: 25px;
+      background-color: var(--skin-color);
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 8px;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -15px;
+      margin-right: -15px;
+      position: relative;
+    }
+    .btn {
+      font-size: 16px;
+      font-weight: 500;
+      padding: 12px 35px;
+      color: white;
+      border-radius: 40px;
+      display: inline-block;
+      white-space: nowrap;
+      border: none;
+      background: var(--skin-color);
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .shadow-dark {
+      box-shadow: 0 0 20px rgba(48,46,77,0.15);
+    }
+    .aside {
+      width: 270px;
+      background: var(--bg-black-100);
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 30px;
+      height: 100%;
+      border-right: 1px solid var(--bg-black-50);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    .aside .logo {
+      position: absolute;
+      top: 50px;
+      font-size: 30px;
+      text-transform: capitalize;
+    }
+    .aside .logo a {
+      color: var(--text-black-900);
+      font-weight: 700;
+      padding: 15px 20px;
+      font-size: 30px;
+      letter-spacing: 5px;
+      position: relative;
+    }
+    .aside .logo a span {
+      font-family: 'Clicker Script', cursive;
+      font-size: 50px;
+    }
+    .aside .logo a::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-bottom: 5px solid var(--skin-color);
+      border-left: 5px solid var(--skin-color);
+      bottom: 0;
+      left: 0;
+    }
+    .aside .logo a::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-top: 5px solid var(--skin-color);
+      border-right: 5px solid var(--skin-color);
+      top: 0;
+      right: 0;
+    }
+    .aside .nav-toggler {
+      height: 40px;
+      width: 45px;
+      border: 1px solid var(--bg-black-50);
+      cursor: pointer;
+      position: fixed;
+      left: 300px;
+      top: 20px;
+      border-radius: 5px;
+      background: var(--bg-black-100);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .aside .nav-toggler span {
+      height: 2px;
+      width: 18px;
+      background: var(--skin-color);
+      display: inline-block;
+      position: relative;
+    }
+    .aside .nav-toggler.open span {
+      background: transparent;
+    }
+    .aside .nav-toggler span::before {
+      content: '';
+      height: 2px;
+      width: 18px;
+      background: var(--skin-color);
+      position: absolute;
+      top: -6px;
+      left: 0;
+    }
+    .aside .nav-toggler.open span::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    .aside .nav-toggler span::after {
+      content: '';
+      height: 2px;
+      width: 18px;
+      background: var(--skin-color);
+      position: absolute;
+      top: 6px;
+      left: 0;
+    }
+    .aside .nav-toggler.open span::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+    .aside .nav {
+      margin-top: 50px;
+    }
+    .aside .nav li {
+      margin-bottom: 20px;
+      display: block;
+    }
+    .aside .nav li a {
+      font-size: 16px;
+      font-weight: 600;
+      display: block;
+      border-bottom: 1px solid var(--bg-black-50);
+      color: var(--text-black-900);
+      padding: 5px 15px;
+    }
+    .aside .nav li a.active {
+      color: var(--skin-color);
+    }
+    .aside .nav li a i {
+      margin-right: 15px;
+    }
+    .home {
+      min-height: 100vh;
+      display: flex;
+      color: var(--text-black-900);
+    }
+    .home .home-info {
+      flex: 0 0 60%;
+      max-width: 60%;
+    }
+    h3.hello {
+      font-size: 28px;
+      margin: 15px 0;
+    }
+    h3.hello span {
+      font-family: 'Clicker Script', cursive;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--skin-color);
+    }
+    h3.my-profession {
+      font-size: 30px;
+      margin: 15px 0;
+    }
+    .typing {
+      color: var(--skin-color);
+    }
+    .home-info p {
+      margin-bottom: 70px;
+      font-size: 20px;
+      color: var(--text-black-700);
+    }
+    .home .home-img {
+      flex: 0 0 40%;
+      max-width: 40%;
+      text-align: center;
+      position: relative;
+    }
+    .home .home-img::after {
+      content: '';
+      position: absolute;
+      height: 80px;
+      width: 80px;
+      border-bottom: 10px solid var(--skin-color);
+      border-right: 10px solid var(--skin-color);
+      right: 20px;
+      bottom: -40px;
+    }
+    .home .home-img::before {
+      content: '';
+      position: absolute;
+      height: 80px;
+      width: 80px;
+      border-top: 10px solid var(--skin-color);
+      border-left: 10px solid var(--skin-color);
+      left: -20px;
+      top: -40px;
+    }
+    .home .home-img img {
+      margin: auto;
+      border-radius: 5px;
+      height: 450px;
+      width: 400px;
+      padding-right: 35px;
+    }
+    .about .about-content {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .about .about-content .about-text {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .about .about-content .about-text h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: var(--text-black-900);
+    }
+    .about .about-content .about-text h3 span {
+      color: var(--skin-color);
+    }
+    .about .about-content .about-text p {
+      font-size: 16px;
+      line-height: 25px;
+      color: var(--text-black-700);
+    }
+    .about .about-content .personal-info {
+      flex: 0 0 60%;
+      max-width: 60%;
+      margin-top: 40px;
+    }
+    .about .about-content .personal-info .info-item {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    .about .about-content .personal-info .info-item p {
+      font-weight: 600;
+      padding: 10px;
+      font-size: 16px;
+      color: var(--text-black-900);
+      border-bottom: 1px solid var(--bg-black-50);
+    }
+    .about .about-content .personal-info .info-item p span {
+      font-weight: 400;
+      color: var(--text-black-700);
+      margin-left: 4px;
+      display: inline-block;
+    }
+    .about .about-content .personal-info .buttons {
+      margin-top: 30px;
+    }
+    .about .about-content .skills {
+      flex: 0 0 40%;
+      max-width: 40%;
+      margin-top: 40px;
+    }
+    .about .about-content .skills .skill-item {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 25px;
+    }
+    .about .about-content .skills .skill-item h5 {
+      line-height: 40px;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text-black-900);
+      text-transform: capitalize;
+    }
+    .about .about-content .skills .skill-item .progress {
+      background-color: var(--bg-black-50);
+      height: 7px;
+      border-radius: 4px;
+      width: 100%;
+      position: relative;
+    }
+    .about .about-content .skills .skill-item .progress-in {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      border-radius: 4px;
+      background-color: var(--skin-color);
+    }
+    .about .about-content .skills .skill-item .skill-percent {
+      position: absolute;
+      right: 0;
+      color: var(--text-black-900);
+      top: -40px;
+      font-weight: 400;
+      line-height: 40px;
+    }
+    .about .about-content .education, .about .about-content .experience {
+      flex: 0 0 50%;
+      max-width: 50%;
+      margin-top: 30px;
+    }
+    .about .about-content h3.title {
+      font-size: 24px;
+      margin-bottom: 30px;
+      font-weight: 700;
+      color: var(--text-black-900);
+    }
+    .about .about-content .timeline-box {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .about .about-content .timeline {
+      background-color: var(--bg-black-100);
+      padding: 30px 15px;
+      border: 1px solid var(--bg-black-50);
+      border-radius: 5px;
+      width: 100%;
+      position: relative;
+    }
+    .about .about-content .timeline .timeline-item {
+      position: relative;
+      padding-left: 37px;
+      padding-bottom: 50px;
+    }
+    .about .about-content .timeline .timeline-item:last-child {
+      padding-bottom: 0;
+    }
+    .about .about-content .timeline .timeline-item::before {
+      content: '';
+      width: 1px;
+      position: absolute;
+      height: 100%;
+      left: 7px;
+      top: 0;
+      background-color: var(--skin-color);
+    }
+    .about .about-content .timeline .circle-dot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      background-color: var(--skin-color);
+    }
+    .about .about-content .timeline .timeline-date {
+      font-weight: 400;
+      font-size: 14px;
+      margin-bottom: 12px;
+      color: var(--text-black-700);
+    }
+    .about .about-content .timeline .timeline-date .fa {
+      margin-right: 5px;
+    }
+    .about .about-content .timeline .timeline-title {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 15px;
+      text-transform: capitalize;
+      color: var(--text-black-900);
+    }
+    .about .about-content .timeline .timeline-text {
+      line-height: 25px;
+      font-size: 16px;
+      text-align: justify;
+      color: var(--text-black-700);
+    }
+    .service .container {
+      padding-bottom: 40px;
+    }
+    .service .service-item {
+      margin-bottom: 30px;
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+    }
+    .service .service-item .service-item-inner {
+      background-color: var(--bg-black-100);
+      border: 1px solid var(--bg-black-50);
+      border-radius: 10px;
+      padding: 30px 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .service .service-item .service-item-inner:hover {
+      box-shadow: 0 0 20px rgba(48,46,77,0.15);
+    }
+    .service .service-item .service-item-inner .icon {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .service .service-item .service-item-inner .icon .fa {
+      font-size: 40px;
+      line-height: 60px;
+      color: var(--skin-color);
+      transition: all 0.3s ease;
+    }
+    .service .service-item .service-item-inner:hover .icon {
+      background: var(--skin-color);
+    }
+    .service .service-item .service-item-inner:hover .icon .fa {
+      font-size: 25px;
+      color: white;
+    }
+    .service .service-item .service-item-inner h4 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: var(--text-black-900);
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+    .service .service-item .service-item-inner p {
+      font-size: 16px;
+      line-height: 25px;
+      color: var(--text-black-700);
+    }
+    .portfolio .container {
+      padding-bottom: 40px;
+    }
+    .portfolio .portfolio-heading {
+      flex: 0 0 100%;
+      max-width: 100%;
+      margin-bottom: 40px;
+    }
+    .portfolio .portfolio-heading h2 {
+      color: var(--text-black-900);
+      font-weight: 500;
+    }
+    .portfolio .portfolio-item {
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+      margin-bottom: 30px;
+    }
+    .portfolio .portfolio-item-inner {
+      border: 6px solid var(--bg-black-100);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .portfolio .portfolio-item-inner .portfolio-img img {
+      width: 100%;
+      display: block;
+    }
+    .contact-title {
+      color: var(--skin-color);
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+    .contact-sub-title {
+      color: var(--text-black-900);
+      text-align: center;
+      font-size: 15px;
+      margin-bottom: 60px;
+    }
+    .contact .contact-info-item {
+      flex: 0 0 25%;
+      max-width: 25%;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .contact .contact-info-item .icon {
+      display: inline-block;
+    }
+    .contact .contact-info-item .icon .fa {
+      font-size: 25px;
+      color: var(--skin-color);
+    }
+    .contact .contact-info-item h4 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-black-900);
+      text-transform: capitalize;
+      margin: 15px 0 5px;
+    }
+    .contact .contact-info-item p {
+      font-size: 16px;
+      line-height: 25px;
+      color: var(--text-black-700);
+      font-weight: 400;
+    }
+    .contact .contact-form {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .contact .contact-form .col-6 {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    .contact .contact-form .col-12 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    .contact .contact-form .form-item {
+      margin-bottom: 30px;
+    }
+    .contact .contact-form .form-item .form-control {
+      width: 100%;
+      height: 50px;
+      border-radius: 25px;
+      background: var(--bg-black-100);
+      border: 1px solid var(--bg-black-50);
+      padding: 10px 25px;
+      font-size: 16px;
+      color: var(--text-black-700);
+      transition: all 0.3s ease;
+    }
+    .contact .contact-form .form-item .form-control:focus {
+      box-shadow: 0 0 20px rgba(48,46,77,0.15);
+    }
+    .contact .contact-form .form-item textarea.form-control {
+      height: 140px;
+    }
+    .contact .contact-form .btn {
+      height: 50px;
+      padding: 0 50px;
+    }
+    .style-switcher {
+      position: fixed;
+      right: 0;
+      top: 60px;
+      padding: 15px;
+      width: 200px;
+      border: 1px solid var(--bg-black-50);
+      background: var(--bg-black-100);
+      z-index: 101;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      transform: translateX(100%);
+    }
+    .style-switcher.open {
+      transform: translateX(-25px);
+    }
+    .style-switcher .s-icon {
+      position: absolute;
+      height: 40px;
+      width: 40px;
+      text-align: center;
+      font-size: 20px;
+      background: var(--bg-black-100);
+      color: var(--text-black-900);
+      right: 100%;
+      border: 1px solid var(--bg-black-50);
+      margin-right: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+    }
+    .style-switcher .s-icon i {
+      line-height: 40px;
+    }
+    .style-switcher .style-switcher-toggler {
+      top: 0;
+    }
+    .style-switcher .day-night {
+      top: 55px;
+    }
+    .style-switcher h4 {
+      margin: 0 0 10px;
+      color: var(--text-black-700);
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+    .style-switcher .colors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .style-switcher .colors span {
+      display: inline-block;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .style-switcher .color-1 { background: #ec1839; }
+    .style-switcher .color-2 { background: #fa5b0f; }
+    .style-switcher .color-3 { background: #37b182; }
+    .style-switcher .color-4 { background: #1854b4; }
+    .style-switcher .color-5 { background: #f021b2; }
+    @media (max-width:1199px) {
+      .section .container { padding-top: 70px; }
+      .aside { left: -270px; }
+      .aside.open { left: 0; }
+      .aside .nav-toggler { display: flex; left: 30px; }
+      .aside .nav-toggler.open { left: 300px; }
+      .section { left: 0; }
+      .section.open { left: 270px; }
+      .about .about-content .personal-info .info-item p span {
+        display: block;
+        margin-left: 0;
+      }
+    }
+    @media (max-width:991px) {
+      .contact .contact-info-item, .portfolio .portfolio-item, .service .service-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+      .home .home-info { flex: 0 0 100%; max-width: 100%; }
+      .home .home-img { display: none; }
+    }
+    @media (max-width:767px) {
+      .contact .contact-form .col-6, .contact .contact-info-item, .portfolio .portfolio-item,
+      .service .service-item, .about .about-content .experience, .about .about-content .education,
+      .about .about-content .skills, .about .about-content .personal-info {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Aside Start -->
+    <div class="aside">
+      <div class="logo">
+        <a href="#"><span>A</span>lex</a>
+      </div>
+      <div class="nav-toggler">
+        <span></span>
+      </div>
+      <ul class="nav">
+        <li><a href="#home" class="active"><i class="fa fa-home"></i>Home</a></li>
+        <li><a href="#about"><i class="fa fa-user"></i>About</a></li>
+        <li><a href="#services"><i class="fa fa-list"></i>Services</a></li>
+        <li><a href="#portfolio"><i class="fa fa-briefcase"></i>Gallery</a></li>
+        <li><a href="#contact"><i class="fa fa-comments"></i>Contact</a></li>
+      </ul>
+    </div>
+    <!-- Aside End -->
+    <!-- Main Content Start -->
+    <div class="main-content">
+      <!-- Home Section Start -->
+      <section class="home active section" id="home">
+        <div class="container">
+          <div class="row">
+            <div class="home-info padd-15">
+              <h3 class="hello">Hello, my name is <span class="name">Alex Muigai</span></h3>
+              <h3 class="my-profession">I'm <span class="typing">an Environmentalist</span></h3>
+              <p>
+                I’m a safety-conscious professional, passionate about sustainability, data-driven solutions, and global impact. With hands-on experience across Canada, Kenya, Uganda, and the US, I bring a diverse perspective to environmental management, rural development, and reclamation projects.
+              </p>
+              <a href="doc/Alex Muigai Resume.docx" class="btn">Download Resume</a>
+            </div>
+            <div class="home-img padd-15">
+              <img src="images/portfolio/Shades.jpeg" alt="Alex Muigai">
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Home Section End -->
+      <!-- About Section Start -->
+      <section class="about section" id="about">
+        <div class="container">
+          <div class="row">
+            <div class="section-title padd-15">
+              <h2>About Me</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="about-content padd-15">
+              <div class="row">
+                <div class="about-text padd-15">
+                  <h3>I'm Alex Muigai and <span>an Environmentalist</span></h3>
+                  <p>
+                    As a hardworking, physically fit field personnel with a strong academic background in Agricultural Economics and Environmental Management, I’m passionate about using data, technology, and sustainable practices to improve rural communities and the environment. My journey has taken me from pineapple plantations in Kenya to sustainability programs in New York and community outreach in Kibera and Mombasa. I thrive in challenging conditions and value teamwork, safety, and impact-driven results.
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="personal-info padd-15">
+                  <div class="row">
+                    <div class="info-item padd-15">
+                      <p>Address: <span>9820 120th Avenue, Fort St. John, British Columbia V1J 6K1</span></p>
+                    </div>
+                    <div class="info-item padd-15">
+                      <p>Email: <span>muigaimaina1@gmail.com</span></p>
+                    </div>
+                    <div class="info-item padd-15">
+                      <p>Location: <span>Fort St. John, British Columbia, Canada</span></p>
+                    </div>
+                    <div class="info-item padd-15">
+                      <p>Cell: <span>+1 (250) 263-8396</span></p>
+                    </div>
+                    <div class="info-item padd-15">
+                      <p>Certifications & Tickets: <span>
+                        <div style="display: flex; gap: 40px; font-size: 14px; color: var(--text-black-900);">
+                          <ul style="list-style: none; padding-left: 12px; margin: 0;">
+                            <li>H2S Alive</li>
+                            <li>WHMIS 2015</li>
+                            <li>First Aid Certified</li>
+                          </ul>
+                          <ul style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>H2S Alive</li>
+                            <li>Fall Arrest</li>
+                            <li>Confined Space Entry</li>
+                          </ul>
+                        </div>
+                      </span></p>
+                    </div>
+                    <div class="info-item padd-15">
+                      <p>Core Values: <span>
+                        <ul style="display: flex; gap: 40px; font-size: 14px; padding-left: 10px; color: var(--text-black-900);">
+                          <li>Teamwork</li>
+                          <li>Reliable</li>
+                          <li>Authentic</li>
+                          <li>Accountable</li>
+                          <li>Adaptable</li>
+                        </ul>
+                      </span></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="buttons padd-15">
+                      <a href="#contact" class="btn">Contact Me</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="skills padd-15">
+                  <div class="row">
+                    <div class="skill-item padd-15">
+                      <h5>Environmental Management</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 86%"></div>
+                        <div class="skill-percent">86%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Data Collection & Analysis</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 92%"></div>
+                        <div class="skill-percent">92%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Community Outreach & Rural Development</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 84%"></div>
+                        <div class="skill-percent">84%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Safety Compliance (H2S Alive, WHMIS 2015, First Aid Certified)</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 90%"></div>
+                        <div class="skill-percent">90%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Data Annotation for AI</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 82%"></div>
+                        <div class="skill-percent">82%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>GIS & Drone Mapping (Basic)</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 84%"></div>
+                        <div class="skill-percent">84%</div>
+                      </div>
+                    </div>
+                    <div class="skill-item padd-15">
+                      <h5>Valid International Driver’s License</h5>
+                      <div class="progress">
+                        <div class="progress-in" style="width: 85%"></div>
+                        <div class="skill-percent">85%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="education padd-15">
+                  <h3 class="title">Education</h3>
+                  <div class="row">
+                    <div class="timeline-box padd-15">
+                      <div class="timeline shadow-dark">
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2024 - Ongoing</h3>
+                          <h4 class="timeline-title">Post Degree Diploma in Environmental Management</h4>
+                          <p class="timeline-text">
+                            Northern Lights College, Fort St. John, BC<br>
+                            Covers practical and theoretical aspects of environmental monitoring, compliance, and sustainability. Key areas include environmental assessment, pollution control, ecological restoration, resource management, and environmental legislation, with a focus on fieldwork and safety protocols relevant to northern and remote areas.
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2020 - 2024</h3>
+                          <h4 class="timeline-title">Bachelor’s Degree in Agricultural Economics</h4>
+                          <p class="timeline-text">
+                            Jomo Kenyatta University, Nairobi, Kenya<br>
+                            Focused on the intersection of agriculture, economics, and policy. Topics included agricultural production economics, resource use efficiency, agribusiness management, rural development, and food security analysis. Emphasized both theoretical frameworks and applied research in the agricultural sector.
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2022 - 2024</h3>
+                          <h4 class="timeline-title">Diploma in Environmental Management</h4>
+                          <p class="timeline-text">
+                            Alison.com<br>
+                            A program covering environmental science fundamentals, sustainability practices, environmental risk assessment, waste management, and conservation strategies. Designed to enhance awareness and competency in managing environmental challenges and promoting eco-friendly practices.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="experience padd-15">
+                  <h3 class="title">Experience</h3>
+                  <div class="row">
+                    <div class="timeline-box padd-15">
+                      <div class="timeline shadow-dark">
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> 2024 - Present</h3>
+                          <h4 class="timeline-title">Data Annotator, Outlier – Canada</h4>
+                          <p class="timeline-text">
+                            <ul>
+                              <li>Train AI models by providing accurate data annotations and feedback</li>
+                              <li>Create and refine datasets across education, healthcare, and sustainability</li>
+                            </ul>
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> Feb 2024 - Nov 2024 (Uganda)</h3>
+                          <h4 class="timeline-title">Data Analyst: Impact Africa Consulting</h4>
+                          <p class="timeline-text">
+                            <ul>
+                              <li>Assisted in data visualization for environmental impact studies</li>
+                              <li>Partnered with team on report writing</li>
+                            </ul>
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> Aug 2023 - Feb 2024 (New York, US)</h3>
+                          <h4 class="timeline-title">Global Alliance for a Sustainable Planet</h4>
+                          <p class="timeline-text">
+                            <ul>
+                              <li>Collaborated with teams to promote rural development and sustainability initiatives</li>
+                              <li>Conducted data analysis for environmental and energy projects</li>
+                            </ul>
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> Mar 2022 - Oct 2024 (Kenya)</h3>
+                          <h4 class="timeline-title">Social Services Assistant: The Salvation Army</h4>
+                          <p class="timeline-text">
+                            <ul>
+                              <li>Led community outreach efforts in Kibera and Mombasa to improve social welfare</li>
+                              <li>Volunteered in peacebuilding and education initiatives to foster community cohesion</li>
+                            </ul>
+                          </p>
+                        </div>
+                        <div class="timeline-item">
+                          <div class="circle-dot"></div>
+                          <h3 class="timeline-date"><i class="fa fa-calendar"></i> Apr 2023 - Sep 2023 (Kenya)</h3>
+                          <h4 class="timeline-title">Intern: Del Monte Kenya Limited</h4>
+                          <p class="timeline-text">
+                            <ul>
+                              <li>Learnt how to utilize drone and GIS software to map pineapple plantations</li>
+                              <li>Assisted in precision agricultural techniques at the pineapple farm</li>
+                            </ul>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- About Section End -->
+        <!-- Services Section Start -->
+        <section class="service section" id="services">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Services</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-hard-hat"></i></div>
+                  <h4>Field & Labor Work</h4>
+                  <p>Physically fit and experienced in demanding outdoor conditions including cold, heat, and extended hours. Safety-certified and compliant with all field protocols.</p>
+                </div>
+              </div>
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-chart-bar"></i></div>
+                  <h4>Data Collection & Analysis</h4>
+                  <p>Skilled in environmental data collection, visualization, and report creation. Proficient in Excel, Word, and other Microsoft tools.</p>
+                </div>
+              </div>
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-pen-nib"></i></div>
+                  <h4>Report & Blog Writing</h4>
+                  <p>Experienced in producing professional reports and articles related to environmental and sustainability projects with clarity and structure.</p>
+                </div>
+              </div>
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-shield-alt"></i></div>
+                  <h4>Safety & Compliance</h4>
+                  <p>H2S Alive, WHMIS 2015, and First Aid certified. Committed to hazard prevention, field safety protocols, and maintaining secure work environments.</p>
+                </div>
+              </div>
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-leaf"></i></div>
+                  <h4>Sustainability & Environmental Support</h4>
+                  <p>Hands-on experience with NGOs and global organizations promoting environmental sustainability, agriculture, and rural development.</p>
+                </div>
+              </div>
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-people-carry"></i></div>
+                  <h4>Community Outreach</h4>
+                  <p>Led social support efforts and peacebuilding programs, enhancing community welfare in underserved regions through education and service.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Services Section End -->
+        <!-- Portfolio Section Start -->
+        <section class="portfolio section" id="portfolio">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Gallery</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="portfolio-heading padd-15">
+                <h2>My Gallery :</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/Standing.jpeg" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/data.jfif" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/Rowing.jpeg" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/beans.jpeg" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/Trees.jpeg" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item padd-15">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio/pineapples.jpeg" alt="" height="400px">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Portfolio Section End -->
+        <!-- Contact Section Start -->
+        <section class="contact section" id="contact">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Contact Me</h2>
+              </div>
+            </div>
+            <h3 class="contact-title padd-15">Have you any Questions?</h3>
+            <h4 class="contact-sub-title padd-15">I'M AT YOUR SERVICES</h4>
+            <div class="row">
+              <div class="contact-info-item padd-15">
+                <div class="icon"><i class="fa fa-phone"></i></div>
+                <h4>Reach Out On</h4>
+                <p>+1 (250) 263-8396</p>
+              </div>
+              <div class="contact-info-item padd-15">
+                <div class="icon"><i class="fa fa-map-marker-alt"></i></div>
+                <h4>Location</h4>
+                <p>Fort St. John, British Columbia, Canada</p>
+              </div>
+              <div class="contact-info-item padd-15">
+                <div class="icon"><i class="fa fa-envelope"></i></div>
+                <h4>Email</h4>
+                <p>muigaimaina1@gmail.com</p>
+              </div>
+              <div class="contact-info-item padd-15">
+                <div class="icon"><i class="fa fa-id-card"></i></div>
+                <h4>References</h4>
+                <p>
+                  <strong>Anke De Boer</strong><br>
+                  Chief of Staff, Global Alliance for a Sustainable Planet<br>
+                  <a href="#">anke.deboer@gaspworld.org</a>
+                </p>
+                <p>
+                  <strong>Joseph Ndiang’ui</strong><br>
+                  Instructor, Northern Lights College<br>
+                  <a href="#">joewachira2000@gmail.com</a>
+                </p>
+              </div>
+            </div>
+            <h3 class="contact-title padd-15">SEND ME AN EMAIL</h3>
+            <h4 class="contact-sub-title padd-15">I'M VERY RESPONSIVE TO MESSAGES</h4>
+            <div class="row">
+              <div class="contact-form padd-15">
+                <div class="row">
+                  <div class="form-item col-6 padd-15">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Name" id="name">
+                    </div>
+                  </div>
+                  <div class="form-item col-6 padd-15">
+                    <div class="form-group">
+                      <input type="email" class="form-control" placeholder="Email" id="email">
+                    </div>
+                  </div>
+                  <div class="form-item col-12 padd-15">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Subject" id="subject">
+                    </div>
+                  </div>
+                  <div class="form-item col-12 padd-15">
+                    <div class="form-group">
+                      <textarea class="form-control" placeholder="Message" id="message"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-item col-12 padd-15">
+                    <button type="button" class="btn" id="submitBtn">Send Message</button>
+                  </div>
+                  <div id="form-status" style="margin-top: 10px; font-weight: bold;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Contact Section End -->
+      </div>
+      <!-- Main Content End -->
+    </div>
+    <!-- Main Container End -->
+    <!-- Style Switcher Start -->
+    <div class="style-switcher">
+      <div class="style-switcher-toggler s-icon">
+        <i class="fas fa-cog fa-spin"></i>
+      </div>
+      <div class="day-night s-icon">
+        <i class="fas fa-moon"></i>
+      </div>
+      <h4>Theme Colors</h4>
+      <div class="colors">
+        <span class="color-1" onclick="setActiveStyle('color-1')"></span>
+        <span class="color-2" onclick="setActiveStyle('color-2')"></span>
+        <span class="color-3" onclick="setActiveStyle('color-3')"></span>
+        <span class="color-4" onclick="setActiveStyle('color-4')"></span>
+        <span class="color-5" onclick="setActiveStyle('color-5')"></span>
+      </div>
+    </div>
+    <!-- Style Switcher End -->
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+  <script>
+    // Typed.js for typing animation
+    const typed = new Typed(".typing", {
+      strings: ["an Environmentalist"],
+      typeSpeed: 100,
+      backSpeed: 60,
+      loop: false
+    });
 
+    // Navigation
+    const nav = document.querySelectorAll(".nav a");
+    const sections = document.querySelectorAll(".section");
+    nav.forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href").substring(1);
+        sections.forEach(section => {
+          section.classList.remove("active");
+          section.classList.add("back-section");
+          if (section.id === targetId) {
+            section.classList.add("active");
+            section.classList.remove("back-section");
+          }
+        });
+        nav.forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Nav Toggler
+    const navToggler = document.querySelector(".nav-toggler");
+    const aside = document.querySelector(".aside");
+    const mainSection = document.querySelector(".main-content .section");
+    navToggler.addEventListener("click", () => {
+      aside.classList.toggle("open");
+      navToggler.classList.toggle("open");
+      mainSection.classList.toggle("open");
+    });
+
+    // Style Switcher
+    const styleSwitcherToggle = document.querySelector(".style-switcher-toggler");
+    styleSwitcherToggle.addEventListener("click", () => {
+      document.querySelector(".style-switcher").classList.toggle("open");
+    });
+
+    // Theme Colors
+    function setActiveStyle(color) {
+      document.documentElement.style.setProperty('--skin-color', getColorValue(color));
+    }
+    function getColorValue(color) {
+      const colors = {
+        'color-1': '#ec1839',
+        'color-2': '#fa5b0f',
+        'color-3': '#37b182',
+        'color-4': '#1854b4',
+        'color-5': '#f021b2'
+      };
+      return colors[color];
+    }
+    document.querySelectorAll(".colors span").forEach(span => {
+      span.addEventListener("click", () => {
+        const color = span.classList[0];
+        setActiveStyle(color);
+      });
+    });
+
+    // Dark Mode
+    const dayNight = document.querySelector(".day-night");
+    dayNight.addEventListener("click", () => {
+      dayNight.querySelector("i").classList.toggle("fa-sun");
+      dayNight.querySelector("i").classList.toggle("fa-moon");
+      document.body.classList.toggle("dark");
+    });
+
+    // Form Submission
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzgkSlKMH1rtaG9CFFJwwAYR9Ehb3ZYncpZ-G1nmHbmvvUX-rvbCMVWWBuFLNZDCBfjKg/exec';
+    document.getElementById('submitBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+      const status = document.getElementById('form-status');
+      const formData = new FormData();
+      formData.append("name", document.getElementById('name').value.trim());
+      formData.append("email", document.getElementById('email').value.trim());
+      formData.append("subject", document.getElementById('subject').value.trim());
+      formData.append("message", document.getElementById('message').value.trim());
+      status.textContent = 'Submitting...';
+      status.style.color = 'black';
+      fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+      })
+      .then(() => {
+        status.textContent = 'Message sent successfully!';
+        status.style.color = 'green';
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('subject').value = '';
+        document.getElementById('message').value = '';
+      })
+      .catch((error) => {
+        console.error('Error!', error.message);
+        status.textContent = 'Error sending message.';
+        status.style.color = 'red';
+      });
+    });
+  </script>
+</html>
